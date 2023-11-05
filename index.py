@@ -8,6 +8,7 @@ def index_page():
     kw = request.args.get('kw')
     cates = dao.get_categories()
     products = dao.get_products(kw)
+
     return render_template('index.html', catalogies=cates, products=products)
 
 @app.route("/<slug>")
@@ -17,9 +18,9 @@ def slug_page(slug):
 
 @app.route("/products/<slug>")
 def product_page(slug):
-    product = dao.get_products(slug = slug)
+    product = dao.get_products(slug = int(slug))
 
-    return render_template('product.html', slug=slug)
+    return render_template('product.html', product = product[0])
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -9,7 +9,7 @@ def get_categories():
         }]
 
 
-def get_products(kw, slug):
+def get_products(kw = False, slug = False):
     products = [{
         'id': 1,
         'name': 'Mobile',
@@ -85,6 +85,6 @@ def get_products(kw, slug):
     if kw:
         products = [p for p in products if p['name'].lower().find(kw.lower()) >= 0]
     if slug:
-        products = [p for p in products if p['id'] == kw]
+        products = [p for p in products if p['id'] == slug]
 
     return products
