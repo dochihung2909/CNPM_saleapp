@@ -1,90 +1,18 @@
+from models import Category, Product
+
 def get_categories():
-    return [{
-        'id': 1,
-        'name': 'Mobile'
-    },
-        {
-            'id': 2,
-            'name': 'Tablet'
-        }]
+
+    return Category.query.all()
+
+def get_products(kw = False, product_id = False, cate_id = False):
+    products = Product.query
 
 
-def get_products(kw = False, slug = False):
-    products = [{
-        'id': 1,
-        'name': 'Mobile',
-        'price': 10000000,
-        'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-        'category_id': 1
-    },
-        {
-            'id': 2,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 3,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-
-        {
-            'id': 4,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 5,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 6,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 7,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 8,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 9,
-            'name': 'Mobile',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-        {
-            'id': 10,
-            'name': 'Iphone',
-            'price': 10000000,
-            'image': 'https://res.cloudinary.com/dxxwcby8l/image/upload/v1688179242/hclq65mc6so7vdrbp7hz.jpg',
-            'category_id': 1
-        },
-    ]
     if kw:
-        products = [p for p in products if p['name'].lower().find(kw.lower()) >= 0]
-    if slug:
-        products = [p for p in products if p['id'] == slug]
+        products = products.filter(Product.name.contains(kw))
+    if product_id:
+        products = products.filter(Product.id == product_id)
+    if cate_id:
+        products = products.filter(Product.category_id == cate_id)
 
-    return products
+    return products.all()
