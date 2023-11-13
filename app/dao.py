@@ -1,8 +1,7 @@
-from models import Category, Product
+from models import Category, Product, User
 
 def get_categories():
-
-    return Category.query.all()
+    return Category.query
 
 def get_products(kw = False, product_id = False, cate_id = False):
     products = Product.query
@@ -16,3 +15,7 @@ def get_products(kw = False, product_id = False, cate_id = False):
         products = products.filter(Product.category_id == cate_id)
 
     return products.all()
+
+
+def get_user_by_id(user_id):
+    return User.query.get(user_id)
