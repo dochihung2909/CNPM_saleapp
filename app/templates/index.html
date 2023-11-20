@@ -2,6 +2,17 @@
 
 {% block content %}
 <section class="container my-4">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          {% if current_page < product_page + 1 %}
+            <li class="page-item"><a class="page-link" href="/?page={{current_page + 1}}">Previous</a></li>
+          {% endif %}
+          {% for page in range(product_page) %}
+            <li class="page-item"><a class="page-link" href="/?page={{page + 1}}">{{ page + 1 }}</a></li>
+          {% endfor %}
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
     <div class="row gap-3">
         {% for p in products %}
         <div class="col-md-3 col-sm-2 pt-4 pb-2 card" style="width: 18rem;">
