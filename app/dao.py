@@ -3,7 +3,7 @@ import hashlib
 from app import app
 
 def get_categories():
-    return Category.query
+    return Category.query.all()
 
 def get_products(kw = False, cate_id = None, page = None, product_id = False,):
     products = Product.query
