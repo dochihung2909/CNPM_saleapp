@@ -1,8 +1,6 @@
 from flask import render_template, request, redirect, session, jsonify
-import dao
-import utils
-from app import app, login
-from flask_login import login_user
+from app import app, login, dao, utils
+from flask_login import login_user, login_required
 
 @app.route("/")
 def index_page():
@@ -58,6 +56,13 @@ def add_to_cart():
         }
     session['cart'] = cart
     return jsonify(utils.count_cart(cart))
+
+@app.route('api/pay', methods=['post'])
+@login_required
+def pay():
+    try:
+        dao.add_receipt(session.get('cart'))
+
 
 @app.route('/cart')
 def index():

@@ -1,6 +1,8 @@
-from models import Category, Product, User
+from models import Category, Product, User, ReceiptDetails, Receipt
 import hashlib
-from app import app
+from app import app, db
+from sqlalchemy import func
+from flask_login import  current_user
 
 def get_categories():
     return Category.query.all()
@@ -33,3 +35,22 @@ def auth_user(username, password):
 
     return User.query.filter(User.username.__eq__(username),
                              User.password.__eq__(password)).first()
+
+
+def count_products_by_cate():
+    return db.session.query(Category.id, Category.name, func.count(Product.id))\
+                    .join(Product, Product.category_id.__eq__(Product.id)).group_by(Category.id).all()
+
+def stats_revenue(kw):
+    query = db.session.query(Product.id, Product.name, func.sum(ReceiptDetails.quantity * ReceiptDetails.unit_price))\
+            .join(ReceiptDetails, ReceiptDetails.id.__eq__(Product.id))
+
+    if kw:
+        query = query.filter(Product.name.contains(kw))
+    return query.group_by(Product.id).all()
+
+
+def add_receipt(cart):
+    if (cart):
+        c = Receipt(user=current_user)
+        db.session.add(receipt)

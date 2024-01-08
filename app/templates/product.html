@@ -91,7 +91,7 @@
                     <form class="add-inputs" method="post">
                         <input type="number" class="form-control" id="cart_quantity" name="cart_quantity" value="1"
                                min="1" max="10">
-                        <button name="add_to_cart" type="submit" class="btn btn-primary btn-lg">Add to cart</button>
+                        <button name="add_to_cart" type="button" onclick="addToCart({{product.id}}, '{{product.name}}', {{product.price}})" class="btn btn-primary btn-lg" btn>Add to cart</button>
                     </form>
                     <form class="add-inputs" method="post">
                         <button name="add_to_cart" type="submit" class="btn btn-primary btn-lg">Add to Wishlist</button>
@@ -123,5 +123,13 @@
         </div>
         <!-- End row -->
     </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Bình luận</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+
+
 </div>
+
+<script src="{{ url_for('static', filename='js/cart.js') }}"></script>
 {% endblock %}
